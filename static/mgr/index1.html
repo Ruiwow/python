@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>陈中瑞</title>
+
+
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+
+
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="http://cdn.staticfile.org/babel-polyfill/6.9.1/polyfill.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <script src="https://cdn.bootcss.com/qs/6.9.0/qs.js"></script>
+    <script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.8.3/jquery.js"></script>
+
+
+
+</head>
+
+<body>
+
+    <div class="container" id="app">
+        <div>
+            展示全部信息
+            <p v-for="item in list">{{item.id}}----{{item.name}}----{{item.phonenumber}}</p>
+        </div>
+        <p>添加信息</p>
+        <form>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">名字</label>
+                <input type="text" class="form-control" id="name" v-model="customers.name">
+
+
+            </div>
+            <button @click="add()" type="button" class="btn btn-primary">Submit</button>
+        </form>
+
+
+        <p>删除信息</p>
+        <button @click="del()" type="button" class="btn btn-primary">删除</button>
+
+
+        <p>修改信息</p>
+        <button @click="Change()" type="button" class="btn btn-primary">修改</button>
+
+
+        <p>点击按钮调用人脸识别</p>
+        <button @click="face()" type="button" class="btn btn-primary">调用</button>
+
+
+        <p>上传图片</p>
+        <img src="img/db6691014a90f60312448b133312b31bb251edd6.jpg" alt="">
+
+
+
+
+
+    </div>
+
+    <div>
+        <input type="file" name="file" id="user" />
+        <img src="" id="tx_img" alt="">
+    </div>
+    <script>
+        $("#user").change(function() {
+
+            var files = $("#user").get(0).files[0]; //获取file控件中的内容
+
+            var reader = new FileReader();
+            reader.readAsDataURL(files);
+            reader.onload = function(f) {
+                // var result = document.getElementById("result");
+                document.getElementById("tx_img").src = this.result;
+
+            }
+
+
+            var formdata = new FormData();
+            formdata.append("file", files);
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "/api/mgr/img", //接口请求地址
+                contentType: false,
+                processData: false,
+                data: formdata,
+                success: function(data) {
+
+
+                }
+            });
+
+        });
+    </script>
+
+    <script>
+        ! function() {
+
+            function n(n, e, t) {
+
+                return n.getAttribute(e) || t
+
+            }
+
+            function e(n) {
+
+                return document.getElementsByTagName(n)
+
+            }
+
+            function t() {
+
+                var t = e("script"),
+                    o = t.length,
+                    i = t[o - 1];
+
+                return {
+
+                    l: o,
+                    z: n(i, "zIndex", -1),
+                    o: n(i, "opacity", .6),
+                    c: n(i, "color", "0,0,0"),
+                    n: n(i, "count", 120)
+
+                }
+
+            }
+
+            function o() {
+
+                a = m.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+
+                    c = m.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+
+            }
+
+            function i() {
+
+                r.clearRect(0, 0, a, c);
+
+                var n, e, t, o, m, l;
+
+                s.forEach(function(i, x) {
+
+                        for (i.x += i.xa, i.y += i.ya, i.xa *= i.x > a || i.x < 0 ? -1 : 1, i.ya *= i.y > c || i.y < 0 ? -1 : 1, r.fillRect(i.x - .5, i.y - .5, 1, 1), e = x + 1; e < u.length; e++) n = u[e],
+
+                            null !== n.x && null !== n.y && (o = i.x - n.x, m = i.y - n.y,
+
+                                l = o * o + m * m, l < n.max && (n === y && l >= n.max / 2 && (i.x -= .03 * o, i.y -= .03 * m),
+
+                                    t = (n.max - l) / n.max, r.beginPath(), r.lineWidth = t / 2, r.strokeStyle = "rgba(" + d.c + "," + (t + .2) + ")", r.moveTo(i.x, i.y), r.lineTo(n.x, n.y), r.stroke()))
+
+                    }),
+
+                    x(i)
+
+            }
+
+            var a, c, u, m = document.createElement("canvas"),
+
+                d = t(),
+                l = "c_n" + d.l,
+                r = m.getContext("2d"),
+
+                x = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+
+                function(n) {
+
+                    window.setTimeout(n, 1e3 / 45)
+
+                },
+
+                w = Math.random,
+                y = {
+                    x: null,
+                    y: null,
+                    max: 2e4
+                };
+            m.id = l, m.style.cssText = "position:fixed;top:0;left:0;z-index:" + d.z + ";opacity:" + d.o, e("body")[0].appendChild(m), o(), window.οnresize = o,
+
+                window.onmousemove = function(n) {
+
+                    n = n || window.event, y.x = n.clientX, y.y = n.clientY
+
+                },
+
+                window.onmouseout = function() {
+
+                    y.x = null, y.y = null
+
+                };
+
+            for (var s = [], f = 0; d.n > f; f++) {
+
+                var h = w() * a,
+                    g = w() * c,
+                    v = 2 * w() - 1,
+                    p = 2 * w() - 1;
+                s.push({
+                    x: h,
+                    y: g,
+                    xa: v,
+                    ya: p,
+                    max: 6e3
+                })
+
+            }
+
+            u = s.concat([y]),
+
+                setTimeout(function() {
+                    i()
+                }, 100)
+
+        }();
+    </script>
+
+</body>
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+
+            list: [],
+            customers: {}
+
+        },
+        created() { //这个函数与vue的生命周期有关，data和methods初始化后，会执行该函数
+
+            this.getList();
+            let self = this;
+        },
+        methods: {
+            getList() {
+                axios.get('/api/mgr/customers?action=list_customer').then(function(response) {
+                    console.log(response.data.ret)
+                    var a = response.data.ret
+                    if (a == 302) {
+                        window.location.replace(response.data.redirect)
+                    } else {
+
+                        vm.list = response.data.retlist;
+                    }
+
+
+
+
+
+                });
+
+
+            },
+            add() {
+                params = JSON.stringify({
+                        action: "add_customer",
+                        data: {
+                            name: "武汉市桥西医院",
+                            phonenumber: "13345679934",
+                            "address": "武汉市桥西医院北路"
+                        }
+
+                    }),
+
+                    $.ajax({
+                        type: 'post',
+                        url: '/api/mgr/customers?action=add_customer',
+                        data: params,
+                        dataType: 'json',
+                        success: function(ret) {
+
+                        },
+                        error: function(e) {
+                            console.log(e.responseText)
+                        }
+
+                    });
+            },
+            del() {
+                params = JSON.stringify({
+
+                        "action": "del_customer",
+                        "id": 7
+
+                    }),
+
+                    $.ajax({
+                        type: 'post',
+                        url: '/api/mgr/customers?action=del_customer',
+                        data: params,
+                        dataType: 'json',
+                        success: function(ret) {
+                            console.log(ret.msg)
+                        },
+                        error: function(data) {
+                            alert(data.msg)
+                        }
+
+                    });
+            },
+
+            Change() {
+                params = JSON.stringify({
+
+                        "action": "modify_customer",
+                        "id": 6,
+                        "newdata": {
+                            "name": "陈中瑞",
+                            "phonenumber": "陈中瑞",
+                            "address": "陈中瑞"
+
+                        }
+
+                    }),
+
+                    $.ajax({
+                        type: 'post',
+                        url: '/api/mgr/customers?action= modify_customer',
+                        data: params,
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log(data.msg)
+
+
+                        },
+                        error: function(data) {
+                            console.log(data.msg)
+                        }
+
+                    });
+            },
+
+
+
+
+            img() {
+
+                file = $("#img")[0].files[0];
+
+                params = JSON.stringify({
+
+                        "action": "img_customer",
+                        "img": file
+
+                    }),
+                    console.log(params)
+
+                $.ajax({
+                    type: 'post',
+                    url: '/api/mgr/customers?action=img_customer',
+                    data: params,
+                    dataType: 'json',
+                    success: function(ret) {
+                        console.log(ret.msg)
+                    },
+                    error: function(data) {
+                        alert(data.msg)
+                    }
+
+                });
+            },
+
+
+
+
+
+
+
+
+
+        },
+    })
+</script>
+
+
+</html>

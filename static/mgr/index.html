@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>员工页面</title>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.7.0/echarts.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-cookie/1.4.0/jquery.cookie.js"></script>
+
+    <style type="text/css">
+        .container-fluid {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 500px;
+            margin-top: 10px;
+        }
+        
+        .left {
+            height: 100%;
+            order: -1;
+            flex: 0 0 200px;
+        }
+        
+        .right {
+            height: 100%;
+            flex: 1 1;
+        }
+        
+        .logo,
+        .btn-group-vertical {
+            display: table;
+            margin: 0 auto;
+        }
+        
+        .btn-left {
+            border: none!important;
+            background: transparent;
+            font-size: 16px;
+            font-weight: lighter!important;
+            margin-bottom: 10px;
+        }
+        
+        .btn-left:focus,
+        .btn-left:hover {
+            background-color: #5c8dff;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: lighter!important;
+            border-radius: 100px!important;
+        }
+        
+        .glyphicon {
+            margin-right: 15px;
+        }
+        
+        .close_img {
+            display: inline-table;
+            width: 40px;
+            height: auto;
+            /* float: right; */
+        }
+        
+        .user_img {
+            display: inline-block;
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+        
+        .nav {
+            text-align: center;
+            font-size: 18px;
+            line-height: 40px;
+            margin-bottom: -1px!important;
+            border: none;
+        }
+        
+        .daka,
+        .count {
+            display: inline-block;
+            width: 45%;
+        }
+        
+        .month {
+            width: 95%;
+        }
+        
+        .pie {
+            display: inline-block;
+            width: 97%;
+        }
+        
+        .calendar {
+            background-color: #a1decb;
+        }
+        
+        table {
+            border-collapse: separate;
+            border-width: 0px 0px 1px 1px;
+            margin: 10px auto;
+            font-size: 20px;
+        }
+        
+        td,
+        th {
+            width: 81px;
+            height: 45px;
+            text-align: center;
+            vertical-align: middle;
+            color: #5d6b7a;
+            position: relative;
+            font-size: 16px;
+        }
+        
+        .thead th {
+            height: 50px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        td {
+            position: relative;
+        }
+        
+        .col-md-3 {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid" id="app">
+        <!-- 左侧边栏 -->
+        <div class="left">
+
+            <div class="logo">
+                <img src="./img/uugai.com-1585724965584.png" width="150px" height="auto" class="img-responsive img-circle">
+            </div>
+            <div class="btn-group-vertical" role="group" aria-label="...">
+
+                <button type="button" class="btn-left btn" @click="change()">
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                    我的考勤
+                </button>
+                <button type="button" class="btn-left btn" @click="change1()">
+                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                    出勤统计
+                </button>
+                <button type="button" class="btn-left btn">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    请假处理
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="right">
+            <div class="nav panel panel-default">考勤管理系统
+                <span style="float: right;margin-right:35px">
+                    <img src="./img/63dba6d27b79483ea51f51c42c0604cd!400x400.jpeg"  class="img-responsive img-circle close_img">
+                    <font style="margin-left: 15px;" class="username">{{username}}</font>
+                </span>
+            </div>
+
+
+            <div id="text1">
+                <div class="panel panel-default" style=" border: none;">
+                    <div class="panel-body">
+                        <img src="./img/63dba6d27b79483ea51f51c42c0604cd!400x400.jpeg" class="img-responsive img-circle user_img" alt="">
+                        <span style="font-size: 20px;">欢迎您！<font class="username">{{username}}</font></span>
+                    </div>
+                    <!--  -->
+                    <div style="display: flex;">
+
+                        <div style="flex: 1;">
+                            <!-- 打卡部分 -->
+                            <div class="panel panel-default daka">
+                                <div class="panel-body">
+                                    <div id="Date" style="font-size: 12px; color: gray;"></div>
+                                    <p @click.once="face()" v-if="flag" style="font-size: 22px; ">滴~今日打卡 </p>
+                                    <p @click="logout()" v-if="!flag" style="font-size: 22px; ">签退</p>
+                                    <div id="time" style="font-size: 12px; color: gray;"></div>
+                                    <hr style="border-top:1px solid gray ;">
+                                    <p style="margin:-20px 0 0 0;">
+                                        <font style="font-size: 30px;">☺
+                                        </font>加油！今天也要努力yo~</p>
+                                </div>
+                            </div>
+                            <!-- 次数统计 -->
+                            <div class="panel panel-default count" style="margin-left: 6%;">
+                                <div class="panel-body">
+                                    <div id="" style="font-size: 12px; color: gray;">本月未打卡次数</div>
+                                    <p style="font-size: 22px;" id="shidao"> {{later}} </p>
+                                    <hr style="border-top:1px solid gray ;">
+                                    <div id="" style="font-size: 12px; color: gray;">本月迟到次数</div>
+
+                                    <p style="margin:0 0 5px">
+                                        <font style="font-size:20px">☹
+                                        </font>1次</p>
+                                </div>
+                            </div>
+
+                            <!-- 饼状图 -->
+                            <div class="panel panel-default pie">
+                                <div class="panel-body">
+                                    <canvas id="canvas_circle" width="500" height="300">
+                                
+                            </canvas>
+                                    <p style="margin-left:85px;font-size:18px;font-weight: bold;">累计旷工：10次</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div style="width: 40%;">
+
+                            <!-- 日历tu -->
+                            <div class="panel panel-default month">
+
+                                <img src="./img/0140925dd25279a8012053c0e93ca9.jpg" width="102%" id="month-img" class="month-img" class="img-responsive" alt="">
+
+                            </div>
+
+                            <!--日历 -->
+                            <div class="panel panel-default calendar">
+
+                                <table cellspacing="0">
+                                    <thead>
+                                        <tr class="thead">
+                                            <th>日</th>
+                                            <th>一</th>
+                                            <th>二</th>
+                                            <th>三</th>
+                                            <th>四</th>
+                                            <th>五</th>
+                                            <th>六</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody"></tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+
+
+
+            <div id="text2" style="float:left;border:2px;display:none">
+                <div class="row">
+                    <div class="col-md-3"><img width="98%" id="1" src="./img/1.gif" alt=""></div>
+                    <div class="col-md-3"><img width="98%" id="2" src="./img/2.gif" alt=""></div>
+                    <div class="col-md-3"><img width="98%" id="3" src="./img/3.gif" alt=""></div>
+                    <div class="col-md-3"><img width="98%" id="4" src="./img/4.gif" alt=""></div>
+                    <div class="col-md-3"><img width="98%" id="5" src="./img/5.gif" alt=""></div>
+                    <div class="col-md-3"><img width="98%" id="6" src="./img/6.gif" alt=""></div>
+                    <div class="col-md-3"><img width="98%" id="7" src="./img/7.gif" alt=""></div>
+                    <div class="col-md-3"><img width="98%" id="8" src="./img/8.gif" alt=""></div>
+                    <div class="col-md-3"><img width="98%" id="9" src="./img/9.gif" alt=""></div>
+                    <div class="col-md-3"><img width="98%" id="10" src="./img/10.gif" alt=""></div>
+                    <div class="col-md-3"><img width="98%" id="11" src="./img/11.gif" alt=""></div>
+                    <div class="col-md-3"><img width="98%" id="12" src="./img/12.gif" alt=""></div>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal fade bs-example-modal-xs" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-xs" role="document">
+
+                <div class="modal-content" style="height: 450px;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" @click='close()' aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">提示</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table cellspacing="0">
+                            <thead>
+                                <tr id="a">
+                                    <th>日</th>
+                                    <th>一</th>
+                                    <th>二</th>
+                                    <th>三</th>
+                                    <th>四</th>
+                                    <th>五</th>
+                                    <th>六</th>
+                                </tr>
+                            </thead>
+                            <tbody id="b"></tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+    </div>
+
+
+
+
+
+
+
+
+    <!-- 日历及填充内容 -->
+
+    <script>
+        $(function() {
+                $('img').click(function(e) {
+                    // 在页面任意位置点击而触发此事件
+                    v_id = $(e.target).attr('id');
+
+                    console.log(v_id)
+                    var today = new Date();
+
+                    today.setMonth(v_id - 1);
+                    today.setDate(1);
+                    // 获取每个月的第一天是星期几，这样决定日历在开始的位置
+                    var week = today.getDay();
+                    //获取当前月最后一天时间
+                    var last = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+                    // 获取最后一天是几号
+                    var lastDate = last.getDate();
+                    // 1号的位置还有多少天，+1是因为求出的星期几时起始位置
+                    var firstNum = Number(7 - week);
+                    var lastDateToWeek = last.getDay();
+
+                    //获取当前月一共有几周
+                    var weekNum = getMonthWeek(lastDateToWeek, lastDate, week);
+                    for (var i = 0; i < weekNum; i++) {
+                        var dateList = '';
+                        var trList = '';
+                        // 第一个星期和最后一个星期分开处理
+                        // 第一个星期
+                        if (i < 1) {
+                            trList = firstWeek(week, firstNum, dateList, trList);
+                        } else if (i < (weekNum - 1)) {
+                            trList = usualWeek(i, firstNum, dateList);
+                        } else {
+                            // 最后一个星期con
+                            trList = lastWeek(i, firstNum, lastDate, dateList);
+                        }
+
+                        document.getElementById('b').innerHTML = document.getElementById('b').innerHTML + trList;
+                    }
+                    dateSign();
+                    $('.modal').modal();
+
+                })
+
+            })
+            // 日期标记(可以做考勤日历，标记早退，迟到，旷工，等)
+        function dateSign() {
+
+            var id = $.cookie("id");
+            var date = new Date();
+            var year = date.getFullYear(); //获取当前年份   
+            var mon = date.getMonth() + 1; //获取当前月份   
+            var day = date.getDate(); //获取当前日  
+            var year_month = year + '年' + v_id + '月';
+            console.log(year_month)
+            params = JSON.stringify({
+                    "action": "Remarks",
+                    "id": id,
+                    // "Nowtime": Nowtime,
+                    "year_month": year_month
+                }),
+
+                $.ajax({
+                    type: 'post',
+                    url: '/api/mgr/customers?action=Remarks',
+                    data: params,
+                    dataType: 'json',
+                    success: function(ret) {
+                        list = ret.data;
+                        vm.datelist = list
+                        var oDiv = document.createElement("div");
+                        oDiv.style.width = '18px';
+                        oDiv.style.height = '4px';
+                        oDiv.style.background = '#ffa7a3';
+                        oDiv.style.borderRadius = '50%'
+                        oDiv.style.position = 'absolute';
+                        oDiv.style.top = '30%';
+                        oDiv.style.right = '35%';
+                        var oTd = document.getElementsByClassName('td-col')
+                        for (i = 0; i < vm.datelist.length; i++) {
+                            j = vm.datelist[i].nowtime.split("月")[1].split("日")[0];
+                            console.log(j)
+                            if (vm.datelist[i].code == 0) {
+                                // oTd[j].appendChild(oDiv.cloneNode(true));
+                                oTd[j].innerHTML = oTd[j].innerHTML + '<span   style="font-size:8px !important">正常</span>'
+                            } else {
+                                oTd[j].innerHTML = oTd[j].innerHTML + '<span  style="font-size:8px">3242</span>'
+                            }
+
+
+                        }
+
+
+                    },
+                    error: function(data) {
+                        alert(data.msg)
+                    }
+
+                });
+
+
+        }
+        // // 获取当前月一共有几周的函数
+        function getMonthWeek(lastDateToWeek, lastDate, week) {
+            return Math.ceil((lastDate + 6 - lastDateToWeek) / 7);
+        }
+
+        // 获取第一周的排列位置
+        function firstWeek(week, firstNum, dateList, trList) {
+            for (let k = 0; k < firstNum; k++) {
+                dateList += '<td class="td-col">' + (k + 1) + '</td>';
+            }
+            if (week === 0) {
+                trList = '<tr>' + dateList + '</td>';
+            } else {
+                trList = '<td colspan="' + (week) + '">' + dateList + '</td>';
+            }
+            return trList;
+        }
+        // 正常周排列位置
+        function usualWeek(i, firstNum, dateList) {
+            for (let k = firstNum + 7 * (i - 1); k < firstNum + 7 * i; k++) {
+                dateList += '<td class="td-col">' + (k + 1) + '</td>';
+            }
+            return '<tr>' + dateList + '</td>';
+        }
+        // 最后一周日期排列位置
+        function lastWeek(i, firstNum, lastDate, dateList) {
+            for (let k = firstNum + 7 * (i - 1); k < lastDate; k++) {
+                dateList += '<td class="td-col">' + (k + 1) + '</td>';
+            }
+            return '<tr>' + dateList + '</td>';
+        }
+    </script>
+
+
+
+
+
+    <!-- 饼状图的绘制 -->
+    <script>
+        //绘制饼图
+        function drawCircle(canvasId, data_arr, color_arr, text_arr) {
+            var c = document.getElementById(canvasId);
+            var ctx = c.getContext("2d");
+            var radius = c.height / 2 - 20; //半径
+            var ox = radius + 20,
+                oy = radius + 20; //圆心
+            var width = 30,
+                height = 10; //图例宽和高
+            var posX = ox * 2 + 20,
+                posY = 30; //
+            var textX = posX + width + 5,
+                textY = posY + 10;
+
+            var startAngle = 0; //起始弧度
+            var endAngle = 0; //结束弧度
+            for (var i = 0; i < data_arr.length; i++) {
+                //绘制饼图
+                sum = data_arr[0] + data_arr[1] + data_arr[2] + data_arr[3];
+
+                endAngle = endAngle + data_arr[i] * Math.PI * 2 / sum; //结束弧度
+                ctx.fillStyle = color_arr[i];
+                ctx.beginPath();
+                ctx.moveTo(ox, oy); //移动到到圆心
+                ctx.arc(ox, oy, radius, startAngle, endAngle, false);
+                ctx.closePath();
+                ctx.fill();
+                startAngle = endAngle; //设置起始弧度
+
+                //绘制比例图及文字
+                ctx.fillStyle = color_arr[i];
+                ctx.fillRect(posX, posY + 20 * i, width, height);
+                ctx.moveTo(posX, posY + 20 * i);
+                ctx.font = 'normal 16px sans-serif'; //斜体 30像素 微软雅黑字体
+                ctx.fillStyle = 'black'; //"#000000";
+                var percent = text_arr[i] + "：" + data_arr[i] + "次";
+                ctx.fillText(percent, textX, textY + 20 * i);
+            }
+        }
+
+        function init() {
+            //绘制饼图
+            //比例数据和颜色
+
+            var data_arr = [1, 4, 5, 6];
+            var color_arr = ["#a3d8ff", "#b2fffa", "#ffcea6", "#ffa7a3"];
+            var text_arr = ["未考勤", "迟到/早退", "请假", "因公未打卡"];
+
+            drawCircle("canvas_circle", data_arr, color_arr, text_arr);
+        }
+
+        //页面加载时执行init()函数
+        window.onload = init;
+    </script>
+
+
+    <!-- 显示时间 -->
+    <script type="text/javascript">
+        $(function data() {
+            var date = new Date();
+            var year = date.getFullYear(); //获取当前年份   
+            var mon = date.getMonth() + 1; //获取当前月份   
+            var day = date.getDate(); //获取当前日  
+            var h = date.getHours(); //获取小时   
+            var m = date.getMinutes(); //获取分钟   
+            var s = date.getSeconds(); //获取秒 
+
+            var d = document.getElementById('Date');
+            var time = document.getElementById('time');
+            d.innerHTML = year + '年' + mon + '月' + day + '日';
+            time.innerHTML = h + ':' + m + ':' + s;
+            document.getElementById('month-img').src = './img/' + mon + '.gif';
+
+        })
+    </script>
+
+
+
+    <!-- Vue -->
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                datelist: '',
+                username: '',
+                later: '暂无yo~',
+                flag: true
+            },
+            created() { //这个函数与vue的生命周期有关，data和methods初始化后，会执行该函数
+                this.setheight();
+                this.validatelogon();
+                this.getname();
+                this.Remarks();
+
+            },
+            methods: {
+                Remarks() {
+
+                    var today = new Date();
+                    today.setDate(1);
+                    // 获取每个月的第一天是星期几，这样决定日历在开始的位置
+                    var week = today.getDay();
+                    //获取当前月最后一天时间
+                    var last = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+                    // 获取最后一天是几号
+                    var lastDate = last.getDate();
+                    // 1号的位置还有多少天，+1是因为求出的星期几时起始位置
+                    var firstNum = Number(7 - week);
+                    var lastDateToWeek = last.getDay();
+
+                    //获取当前月一共有几周
+                    var weekNum = getMonthWeek(lastDateToWeek, lastDate, week);
+                    for (var i = 0; i < weekNum; i++) {
+                        var dateList = '';
+                        var trList = '';
+                        // 第一个星期和最后一个星期分开处理
+                        // 第一个星期
+                        if (i < 1) {
+                            trList = firstWeek(week, firstNum, dateList, trList);
+                        } else if (i < (weekNum - 1)) {
+                            trList = usualWeek(i, firstNum, dateList);
+                        } else {
+                            // 最后一个星期con
+                            trList = lastWeek(i, firstNum, lastDate, dateList);
+                        }
+
+                        document.getElementById('tbody').innerHTML = document.getElementById('tbody').innerHTML + trList;
+                    }
+                    dateSign();
+
+                    // 日期标记(可以做考勤日历，标记早退，迟到，旷工，等)
+                    function dateSign() {
+                        var id = $.cookie("id");
+                        var date = new Date();
+                        var year = date.getFullYear(); //获取当前年份   
+                        var mon = date.getMonth() + 1; //获取当前月份   
+                        var day = date.getDate(); //获取当前日  
+                        var year_month = year + '年' + mon + '月';
+                        params = JSON.stringify({
+                                "action": "Remarks",
+                                "id": id,
+                                // "Nowtime": Nowtime,
+                                "year_month": year_month
+                            }),
+
+                            $.ajax({
+                                type: 'post',
+                                url: '/api/mgr/customers?action=Remarks',
+                                data: params,
+                                dataType: 'json',
+                                success: function(ret) {
+                                    list = ret.data;
+                                    vm.datelist = list
+                                    var oDiv = document.createElement("div");
+                                    oDiv.style.width = '18px';
+                                    oDiv.style.height = '4px';
+                                    oDiv.style.background = '#ffa7a3';
+                                    oDiv.style.borderRadius = '50%'
+                                    oDiv.style.position = 'absolute';
+                                    oDiv.style.top = '30%';
+                                    oDiv.style.right = '35%';
+                                    var oTd = document.getElementsByTagName('td')
+                                    for (i = 0; i < vm.datelist.length; i++) {
+                                        j = vm.datelist[i].nowtime.split("月")[1].split("日")[0];
+
+                                        if (vm.datelist[i].code == 0) {
+                                            // oTd[j].appendChild(oDiv.cloneNode(true));
+                                            oTd[j].innerHTML = oTd[j].innerHTML + '<span  style="font-size:8px">正常</span>'
+                                        } else {
+                                            oTd[j].innerHTML = oTd[j].innerHTML + '<span  style="font-size:8px">3242</span>'
+                                        }
+
+
+                                    }
+
+
+                                },
+                                error: function(data) {
+                                    alert(data.msg)
+                                }
+
+                            });
+
+
+
+
+                    }
+                    // 获取当前月一共有几周的函数
+                    function getMonthWeek(lastDateToWeek, lastDate, week) {
+
+                        return Math.ceil((lastDate + 6 - lastDateToWeek) / 7);
+                    }
+
+                    // 获取第一周的排列位置
+                    function firstWeek(week, firstNum, dateList, trList) {
+                        for (let k = 0; k < firstNum; k++) {
+                            dateList += '<td class="td-col">' + (k + 1) + '</td>';
+                        }
+                        if (week === 0) {
+                            trList = '<tr>' + dateList + '</tr>';
+                        } else {
+                            trList = '<td colspan="' + (week) + '">' + dateList + '</td>';
+                        }
+                        return trList;
+                    }
+                    // 正常周排列位置
+                    function usualWeek(i, firstNum, dateList) {
+                        for (let k = firstNum + 7 * (i - 1); k < firstNum + 7 * i; k++) {
+                            dateList += '<td>' + (k + 1) + '</td>';
+                        }
+                        return '<tr>' + dateList + '</tr>';
+                    }
+                    // 最后一周日期排列位置
+                    function lastWeek(i, firstNum, lastDate, dateList) {
+                        for (let k = firstNum + 7 * (i - 1); k < lastDate; k++) {
+                            dateList += '<td>' + (k + 1) + '</td>';
+                        }
+                        return '<tr>' + dateList + '</tr>';
+                    }
+                },
+
+                close() {
+                    document.getElementById('b').innerHTML = '';
+
+                },
+                //    获取登录界面的用户信息
+                getname() {
+
+                    var username = $.cookie("username");
+                    var id = $.cookie("id");
+                    this.username = username
+
+
+
+                },
+
+                // 人脸识别
+                face() {
+                    // 后台传过来的staff_id
+                    var id = $.cookie("id");
+                    var name = $.cookie("username");
+                    var date = new Date();
+                    var year = date.getFullYear(); //获取当前年份   
+                    var mon = date.getMonth() + 1; //获取当前月份   
+                    var day = date.getDate(); //获取当前日  
+                    var Nowtime = year + '年' + mon + '月' + day + '日';
+                    var year_month = year + '年' + mon + '月';
+                    params = JSON.stringify({
+
+                            "action": "face_customer",
+                            "id": id,
+                            'name': name,
+                            "Nowtime": Nowtime,
+                            "year_month": year_month
+                        }),
+
+                        $.ajax({
+                            type: 'post',
+                            url: '/api/mgr/customers?action=face_customer',
+                            data: params,
+                            dataType: 'json',
+                            success: function(ret) {
+
+                                vm.flag = false
+                            },
+                            error: function(data) {
+                                alert(data.msg)
+                            }
+
+                        });
+                },
+
+
+                // 登录验证
+                validatelogon() {
+                    var id = $.cookie("id");
+                    var date = new Date();
+                    var year = date.getFullYear(); //获取当前年份   
+                    var mon = date.getMonth() + 1; //获取当前月份   
+                    var day = date.getDate(); //获取当前日  
+                    var year_month = year + '年' + mon + '月';
+
+                    par = JSON.stringify({
+
+                            "action": "validatelogon",
+                            "id": id,
+                            "year_month": year_month
+                        }),
+                        axios.post('/api/mgr/customers?action=validatelogon', par).then(function(response) {
+
+                            var a = response.data.ret
+                            if (a == 302) {
+                                window.location.replace(response.data.redirect)
+                            } else {
+                                vm.later = response.data.count + '次'
+                            }
+
+                        })
+                },
+                logout() {
+                    var id = $.cookie("id");
+                    var date = new Date();
+                    var year = date.getFullYear(); //获取当前年份   
+                    var mon = date.getMonth() + 1; //获取当前月份   
+                    var day = date.getDate(); //获取当前日  
+                    var Nowtime = year + '年' + mon + '月' + day + '日';
+                    params = JSON.stringify({
+
+                            "action": "logout_customer",
+                            "id": id,
+                            "Nowtime": Nowtime
+                        }),
+
+                        $.ajax({
+                            type: 'post',
+                            url: '/api/mgr/customers?action=logout_customer',
+                            data: params,
+                            dataType: 'json',
+                            success: function(ret) {
+                                console.log(ret.msg)
+                            },
+                            error: function(data) {
+                                alert(data.msg)
+                            }
+
+                        });
+                },
+
+
+                // 统一div高度
+                setheight() {
+
+
+
+                    $(".calendar").height($(".pie").height());
+
+                    $(".month-img").height($(".count").height());
+
+                },
+                // 切换按钮
+                change() {
+
+                    $("#text1").show()
+                    $("#text2").hide()
+
+                },
+
+                change1() {
+
+                    $("#text2").show()
+                    $("#text1").hide()
+
+                },
+
+
+
+            }
+
+        })
+    </script>
+    <script src="./js/jQuery-param.js"></script>
+
+</body>
+
+</html>

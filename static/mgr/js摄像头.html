@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+
+<body>
+    <div id="id">
+        <span v-if="flag" @click.once=change()>
+           如果flag为true则显示,false不显示!
+        </span>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: "#id",
+        data: {
+            flag: true
+        },
+        methods: {
+            change() {
+                vm.flag = false
+            }
+        }
+    })
+</script>
+
+</html>

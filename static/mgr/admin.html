@@ -5,28 +5,24 @@
     <meta charset="UTF-8">
     <title>陈中瑞</title>
 
-
-
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1">
-
-    <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta content="black" name="apple-mobile-web-app-status-bar-style">
-
-
-
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="./js/layui-v2.5.6/layui/css/layui.css">
-    <script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.js"></script>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.2.0/jquery.js"></script>
+    <script src="./js/layui-v2.5.6/layui/layui.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script src="http://cdn.staticfile.org/babel-polyfill/6.9.1/polyfill.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/babel-polyfill/7.8.0/polyfill.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.2.0/jquery.js"></script>
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
-    <script src="https://cdn.bootcss.com/qs/6.9.0/qs.js"></script>
-    <script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/qs/6.9.0/qs.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
+
+
     <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
-    <script src="./js/layui-v2.5.6/layui/layui.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-cookie/1.4.0/jquery.cookie.js"></script>
+
 
 
 
@@ -59,10 +55,10 @@
     }
     
     .btn-left {
-        border: none!important;
+        border: none !important;
         background: transparent;
         font-size: 16px;
-        font-weight: lighter!important;
+        font-weight: lighter !important;
         margin-bottom: 10px;
     }
     
@@ -71,8 +67,8 @@
         background-color: #5c8dff;
         color: #ffffff;
         font-size: 16px;
-        font-weight: lighter!important;
-        border-radius: 100px!important;
+        font-weight: lighter !important;
+        border-radius: 100px !important;
     }
     
     .glyphicon {
@@ -97,7 +93,7 @@
         text-align: center;
         font-size: 18px;
         line-height: 40px;
-        margin-bottom: -1px!important;
+        margin-bottom: -1px !important;
         border: none;
     }
     
@@ -183,11 +179,12 @@
         </div>
 
 
-        <div class="right ">
-            <div class="nav panel panel-default ">考勤管理系统
+        <div class="right">
+            <div class="nav panel panel-default">考勤管理系统
                 <span style="float: right;margin-right:35px ">
-                    <img src="./img/63dba6d27b79483ea51f51c42c0604cd!400x400.jpeg "  class="img-responsive img-circle close_img ">
-                    <font style="margin-left: 15px; " class="username "></font>
+                    <img src="./img/63dba6d27b79483ea51f51c42c0604cd!400x400.jpeg "
+                        class="img-responsive img-circle close_img ">
+                    <font style="margin-left: 15px; " class="username"></font>
                 </span>
             </div>
 
@@ -196,19 +193,19 @@
 
 
 
-            <div id="text1 ">
+            <div id="text1">
 
-                <form class="layui-form " name="form " action=" ">
-                    <div class="layui-form-item " style="margin-left:350px; ">
+                <form class="layui-form" name="form" action=" ">
+                    <div class="layui-form-item" style="margin-left:350px;">
                         <div class="layui-inline ">
-                            <input type="text " id="userName " onkeydown='KeyDown()' name="userName " required lay-verify="required " placeholder="请输入用户名 " autocomplete="off " class="layui-input ">
+                            <input type="text" id="userName" onkeydown='KeyDown()' name="userName" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
                         </div>
-                        <button class="layui-btn layui-btn-normal " type="button " onclick="return false; " data-type="reload " name="search " id="selectbyCondition ">搜索</button>
-                        <button class="layui-btn layui-btn-normal " type="button " onclick="insert() ">添加</button>
+                        <button class="layui-btn layui-btn-normal" type="button" onclick="return false;" data-type="reload" name="search" id="selectbyCondition">搜索</button>
+                        <button class="layui-btn layui-btn-normal" type="button" onclick="insert() ">添加</button>
                     </div>
                 </form>
 
-                <table class="layui-hide " id="test " lay-filter="test ">
+                <table class="layui-hide" id="test" lay-filter="test">
 
                 </table>
 
@@ -218,10 +215,11 @@
 
             </div>
 
-            <div id="text2 " style="display: none; ">
-                <table class="layui-hide " id="Attendance " lay-filter="Attendance ">
+            <div id="text2" style="display: none; ">
+                <table class="layui-hide " id="Attendance" lay-filter="Attendance ">
 
                 </table>
+
             </div>
 
 
@@ -231,6 +229,71 @@
 
 
     </div>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">设为管理员</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                a: 'q',
+
+                list: [],
+                customers: {}
+
+            },
+            created() { //这个函数与vue的生命周期有关，data和methods初始化后，会执行该函数
+
+                // this.getList();
+
+            },
+            methods: {
+                img() {
+                    $("#user").change(function() {
+                        var files = $("#user").get(0).files[0]; //获取file控件中的内容
+                        var reader = new FileReader();
+                        reader.readAsDataURL(files);
+                        reader.onload = function(f) {
+                            // var result = document.getElementById("result ");
+                            document.getElementById("tx_img").src = this.result;
+                        }
+                        var formdata = new FormData();
+                        formdata.append("file", files);
+                        console.log(files)
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/mgr/img", //接口请求地址
+                            contentType: false,
+                            processData: false,
+                            data: formdata,
+                            success: function(data) {}
+                        });
+
+                    });
+                },
+
+                change() {
+
+                    $("#text1").show()
+                    $("#text2").hide()
+
+
+                },
+
+                change1() {
+
+                    $("#text2").show()
+                    $("#text1").hide()
+
+                },
+
+            }
+        })
+    </script>
 
     <script>
         layui.use('table', function() {
@@ -347,16 +410,16 @@
 
 
     <script>
-        $("#user ").change(function() {
-            var files = $("#user ").get(0).files[0]; //获取file控件中的内容
+        $("#user").change(function() {
+            var files = $("#user").get(0).files[0]; //获取file控件中的内容
             var reader = new FileReader();
             reader.readAsDataURL(files);
             reader.onload = function(f) {
                 // var result = document.getElementById("result ");
-                document.getElementById("tx_img ").src = this.result;
+                document.getElementById("tx_img").src = this.result;
             }
             var formdata = new FormData();
-            formdata.append("file ", files);
+            formdata.append("file", files);
 
 
 
@@ -382,15 +445,15 @@
                     ,
                 content: $('#form'),
                 yes: function(index, layero) {
-                    var files = $("#user ").get(0).files[0]; //获取file控件中的内容
+                    var files = $("#user").get(0).files[0]; //获取file控件中的内容
                     var reader = new FileReader();
                     reader.readAsDataURL(files);
                     reader.onload = function(f) {
                         // var result = document.getElementById("result ");
-                        document.getElementById("tx_img ").src = this.result;
+                        document.getElementById("tx_img").src = this.result;
                     }
                     var formdata = new FormData();
-                    formdata.append("file ", files);
+                    formdata.append("file", files);
                     path = 'D:\\QQPCmgr\\python\\' + 'firstpy\\static/mgr\\img/' + files.name
 
 
@@ -409,7 +472,7 @@
                     name = $('#name').val()
 
                     params = JSON.stringify({
-                            action: "add_customer ",
+                            action: "add_customer",
                             name: name,
                             img: path
                         }),
@@ -421,7 +484,7 @@
                             dataType: 'json',
                             success: function(ret) {
 
-                                document.getElementById("form ").reset();
+                                document.getElementById("form").reset();
 
                             },
                             error: function(e) {
@@ -433,8 +496,8 @@
 
                 },
                 end: function(index, layero) {
-                    document.getElementById("form ").reset();
-                    document.getElementById("tx_img ").src = '';
+                    document.getElementById("form").reset();
+                    document.getElementById("tx_img").src = '';
                 }
             });
         }
@@ -442,15 +505,6 @@
 
 
 
-
-
-
-
-
-    <script type="text/html " id="barDemo ">
-        <a class="layui-btn layui-btn-xs " lay-event="edit ">设为管理员</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs " lay-event="del ">删除</a>
-    </script>
 
     <script>
         function KeyDown() {
@@ -469,7 +523,7 @@
 
                 elem: '#test',
 
-                url: "/api/mgr/customers?action=export ", //数据接口
+                url: "/api/mgr/customers?action=export", //数据接口
 
                 method: 'get',
 
@@ -554,9 +608,9 @@
 
                         templet: function(res) {
 
-                            url = res.photo.split("/ ")[2];
-                            img = "img/ "
-                            return '<img class="img-responsive img-circle "  src=" ' + img + ' ' + url + ' ">'
+                            url = res.photo.split("/")[2];
+                            img = "img/"
+                            return '<img class="img-responsive img-circle "  src="' + img + '' + url + '">'
                         }
                     }, {
                         field: 'sex',
@@ -686,168 +740,6 @@
         });
     </script>
 
-
-    <script>
-        var vm = new Vue({
-            el: '#app',
-            data: {
-
-                list: [],
-                customers: {}
-
-            },
-            created() { //这个函数与vue的生命周期有关，data和methods初始化后，会执行该函数
-
-                // this.getList();
-
-            },
-            methods: {
-                img() {
-                    $("#user ").change(function() {
-                        var files = $("#user ").get(0).files[0]; //获取file控件中的内容
-                        var reader = new FileReader();
-                        reader.readAsDataURL(files);
-                        reader.onload = function(f) {
-                            // var result = document.getElementById("result ");
-                            document.getElementById("tx_img ").src = this.result;
-                        }
-                        var formdata = new FormData();
-                        formdata.append("file ", files);
-                        console.log(files)
-                        $.ajax({
-                            type: "POST ",
-                            url: "/api/mgr/img ", //接口请求地址
-                            contentType: false,
-                            processData: false,
-                            data: formdata,
-                            success: function(data) {}
-                        });
-
-                    });
-                },
-
-                change() {
-
-                    $("#text1 ").show()
-                    $("#text2 ").hide()
-
-                },
-
-                change1() {
-
-                    $("#text2 ").show()
-                    $("#text1 ").hide()
-
-                },
-                // getList() {
-                //     axios.get('/api/mgr/customers?action=list_staff').then(function(response) {
-
-                //         var a = response.data.ret
-                //         if (a == 302) {
-                //             window.location.replace(response.data.redirect)
-                //             console.log(response.data.msg)
-                //         } else {
-
-                //             vm.list = response.data.retlist;
-                //         }
-
-
-
-
-
-                //     });
-
-
-                // },
-
-                // add() {
-                //     params = JSON.stringify({
-                //             action: "add_customer ",
-                //             data: {
-                //                 name: "武汉市桥西医院 ",
-
-                //             }
-
-                //         }),
-
-                //         $.ajax({
-                //             type: 'post',
-                //             url: '/api/mgr/customers?action=add_customer',
-                //             data: params,
-                //             dataType: 'json',
-                //             success: function(ret) {
-
-                //             },
-                //             error: function(e) {
-                //                 console.log(e.responseText)
-                //             }
-
-                //         });
-                // },
-                //     del() {
-                //         params = JSON.stringify({
-
-                //                 "action ": "del_customer ",
-                //                 "id ": 7
-
-                //             }),
-
-                //             $.ajax({
-                //                 type: 'post',
-                //                 url: '/api/mgr/customers?action=del_customer',
-                //                 data: params,
-                //                 dataType: 'json',
-                //                 success: function(ret) {
-                //                     console.log(ret.msg)
-                //                 },
-                //                 error: function(data) {
-                //                     alert(data.msg)
-                //                 }
-
-                //             });
-                //     },
-
-                //     Change() {
-                //         params = JSON.stringify({
-
-                //                 "action ": "modify_customer ",
-                //                 "id ": 6,
-                //                 "newdata ": {
-                //                     "name ": "陈中瑞 ",
-                //                     "phonenumber ": "陈中瑞 ",
-                //                     "address ": "陈中瑞 "
-
-                //                 }
-
-                //             }),
-
-                //             $.ajax({
-                //                 type: 'post',
-                //                 url: '/api/mgr/customers?action= modify_customer',
-                //                 data: params,
-                //                 dataType: 'json',
-                //                 success: function(data) {
-                //                     console.log(data.msg)
-
-
-                //                 },
-                //                 error: function(data) {
-                //                     console.log(data.msg)
-                //                 }
-
-                //             });
-                //     },
-
-
-
-
-
-
-
-            },
-        })
-    </script>
-
 </body>
 <form class="layui-form" id="form">
     <div class="layui-form-item">
@@ -862,6 +754,5 @@
     </div>
 
 </form>
-
 
 </html>
